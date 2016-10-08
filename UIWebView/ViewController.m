@@ -10,20 +10,76 @@
 
 @interface ViewController ()
 
+@property (nonatomic) UIWebView *webview;
+
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
+    self.webview = [[UIWebView alloc] init];
+    
+    self.webview.delegate = self;
+    
+    [self.view addSubview:self.webview];
+    
+    // Setting up left constraint
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.webview
+                                                          attribute:NSLayoutAttributeLeft
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeLeft
+                                                         multiplier:1.0
+                                                           constant:0]];
+    
+    // Setting up right constraint
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.webview
+                                                          attribute:NSLayoutAttributeRight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeRight
+                                                         multiplier:1.0
+                                                           constant:0]];
+    
+    // Setting up top constraint
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.webview
+                                                          attribute:NSLayoutAttributeTop
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeTop
+                                                         multiplier:1.0
+                                                           constant:0]];
+    
+    // Setting up bottom constraint
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.webview
+                                                          attribute:NSLayoutAttributeBottom
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeBottom
+                                                         multiplier:1.0
+                                                           constant:0]];
+    
+    self.webview.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    NSString *fullURL = @"https://apple.com";
+    NSURL *url = [NSURL URLWithString:fullURL];
+    NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
+    [self.webview loadRequest:requestObj];
 }
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)webViewDidStartLoad:(UIWebView *)webView {
+    NSLog(@"start");
 }
 
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    NSLog(@"stop");
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+    NSLog(@"error");
+}
 
 @end
