@@ -71,15 +71,15 @@
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-    NSLog(@"start");
+    NSLog(@"webViewDidStartLoad");
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    NSLog(@"stop");
+    NSLog(@"webViewDidFinishLoad");
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-    NSLog(@"error");
+    NSLog(@"didFailLoadWithError");
 }
 
 @end
